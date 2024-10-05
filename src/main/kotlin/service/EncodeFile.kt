@@ -1,8 +1,12 @@
 package service
 
 import ValidatedParameters
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Inject
 
+@ApplicationScoped
 class EncodeFile(
+    @Inject
     private var shiftCharacters: ShiftCharacters,
 ) {
     fun encodeFile(validatedParameters: ValidatedParameters) {

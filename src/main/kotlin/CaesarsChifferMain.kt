@@ -1,12 +1,14 @@
 import io.quarkus.runtime.QuarkusApplication
 import io.quarkus.runtime.annotations.QuarkusMain
+import jakarta.inject.Inject
 import service.EncodeFile
-import service.ShiftCharacters
 import java.io.File
 
 @QuarkusMain
-class CaesarsChifferMain : QuarkusApplication {
-    private val encodeFile = EncodeFile(ShiftCharacters())
+class CaesarsChifferMain(
+    @Inject
+    private var encodeFile: EncodeFile,
+) : QuarkusApplication {
     override fun run(vararg args: String): Int {
         validateArgs(args)?.let { validatedParameters ->
             if (!validatedParameters.inputFile.exists()) {
@@ -25,7 +27,7 @@ class CaesarsChifferMain : QuarkusApplication {
         var shiftCount: Int? = null
 
         when (args.size) {
-            5, 6 -> {
+            6, 7 -> {
                 for (i in args.indices) {
                     when (args[i]) {
                         "--decode" -> decode = true
@@ -42,7 +44,7 @@ class CaesarsChifferMain : QuarkusApplication {
                 return null
             }
         }
-        return if (shiftCount == null || inputFile == null || outputFile == null || (decode && args.size == 5)) {
+        return if (shiftCount == null || inputFile == null || outputFile == null || (decode && args.size == 6)) {
             parameterValidationOutput()
             return null
         } else ValidatedParameters(
