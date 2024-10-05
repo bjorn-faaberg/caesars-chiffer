@@ -1,12 +1,24 @@
 import io.quarkus.runtime.QuarkusApplication
 import io.quarkus.runtime.annotations.QuarkusMain
 import service.EncodeFile
+import service.ShiftCharacters
 import java.io.File
 
 @QuarkusMain
 class CaesarsChifferMain : QuarkusApplication {
-    val encodeFile = EncodeFile()
+    private val encodeFile = EncodeFile(ShiftCharacters())
     override fun run(vararg args: String): Int {
+        validateArgs(args)?.let { validatedParameters ->
+            if (!validatedParameters.inputFile.exists()) {
+                println("inputfile ${validatedParameters.inputFile} not found")
+                return 1
+            }
+            encodeFile.encodeFile(validatedParameters)
+        }
+        return 0
+    }
+
+    private fun validateArgs(args: Array<out String>): ValidatedParameters? {
         var decode = false
         var inputFile: String? = null
         var outputFile: String? = null
@@ -27,21 +39,17 @@ class CaesarsChifferMain : QuarkusApplication {
             else -> {
                 parameterValidationOutput()
                 println("Usage: --inputfile <inputfile> --outputfile <outputfile> [--decode]")
-                return 1
+                return null
             }
         }
-        if (shiftCount == null || inputFile == null || outputFile == null || (decode && args.size == 5)) {
+        return if (shiftCount == null || inputFile == null || outputFile == null || (decode && args.size == 5)) {
             parameterValidationOutput()
-            return 1
-        } else {
-            val file = File(inputFile)
-            if (!file.exists()) {
-                println("inputfile $inputFile not found")
-                return 1
-            }
-            encodeFile.encodeFile(shiftCount, inputFile, outputFile, decode)
-        }
-        return 0
+            return null
+        } else ValidatedParameters(
+            inputFile = File(inputFile),
+            outputFile = File(outputFile),
+            shiftCount = if (decode) shiftCount.unaryMinus() else shiftCount
+        )
     }
 
     private fun parameterValidationOutput() =
