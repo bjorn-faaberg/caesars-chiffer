@@ -1,9 +1,11 @@
 import io.quarkus.runtime.QuarkusApplication
 import io.quarkus.runtime.annotations.QuarkusMain
+import service.EncodeFile
 import java.io.File
 
 @QuarkusMain
 class CaesarsChifferMain : QuarkusApplication {
+    val encodeFile = EncodeFile()
     override fun run(vararg args: String): Int {
         var decode = false
         var inputFile: String? = null
@@ -37,6 +39,7 @@ class CaesarsChifferMain : QuarkusApplication {
                 println("inputfile $inputFile not found")
                 return 1
             }
+            encodeFile.encodeFile(shiftCount, inputFile, outputFile, decode)
         }
         return 0
     }
