@@ -12,7 +12,7 @@ repositories {
 val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
-
+val assertjVersion = "3.26.3"
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-kotlin")
@@ -20,6 +20,7 @@ dependencies {
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-config-yaml")
     testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("org.assertj:assertj-core:$assertjVersion")
 }
 
 group = "net.faaberg"

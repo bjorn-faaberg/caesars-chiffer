@@ -1,3 +1,5 @@
 shift:
   start: 0 # First position of Basic Multilingual Plane (BMP)
   end: 65535 # Last position of Basic Multilingual Plane (BMP)
+#  start: 65 # First position as A in Unicode
+#  end: 88 # Last position as Z in Unicode
