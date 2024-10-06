@@ -1,4 +1,4 @@
-# caesars-chiffer
+# caesars-cipher
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -49,7 +49,7 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./build/caesars-chiffer-1.0.0-SNAPSHOT-runner`
+You can then execute your native executable with: `./build/caesars-cipher-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/gradle-tooling>.
 
