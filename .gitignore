@@ -40,6 +40,6 @@ nb-configuration.xml
 # TLS Certificates
 .certs/
 
-# Caesars Chiffer
+# Caesars cipher
 inputfiles
 outputfiles

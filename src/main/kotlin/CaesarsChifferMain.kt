@@ -5,7 +5,7 @@ import service.EncodeFile
 import java.io.File
 
 @QuarkusMain
-class CaesarsChifferMain(
+class CaesarscipherMain(
     @Inject
     private var encodeFile: EncodeFile,
 ) : QuarkusApplication {
