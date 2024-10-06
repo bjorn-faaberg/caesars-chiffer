@@ -7,7 +7,7 @@ help:
 
 .PHONY: build
 build:
-	sh gradlew clean build
+		sh ./gradlew build -Dquarkus.package.jar.type=uber-jar
 
 .PHONY: test
 test:

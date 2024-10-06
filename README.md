@@ -1,8 +1,34 @@
 # caesars-cipher
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project implements the Caesar's cipher algorithm and accepts parameters to determine how many characters to shift,
+the file that should be encoded, and the name of the output file that the encoded text will be saved to.
+There is also a parameter to decode the file.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+An assumption has been made that the input file is a text file using UTF-8 encoding.
+
+To compile and run the project, you will need Java 21, and can use the following command:
+
+```shell script
+make build
+java -jar build/caesars-cipher-1.0.0-SNAPSHOT-runner.jar \
+    --shiftcount <chars-to-shift> \
+    --inputfile <full-path-to-input-file> \
+    --outputfile <full-path-to-output-file>
+```
+and to decode the file, you can use the following command:
+
+```shell script
+make build
+java -jar build/caesars-cipher-1.0.0-SNAPSHOT-runner.jar \
+    --shiftcount <chars-to-shift> \
+    --inputfile <full-path-to-input-file> \
+    --outputfile <full-path-to-output-file> \
+    --decode
+```
+If you lack Make, you can use the following commands to build the project to a jar file:
+```shell script
+./gradlew build -Dquarkus.package.jar.type=uber-jar
+```
 
 ## Running the application in dev mode
 
