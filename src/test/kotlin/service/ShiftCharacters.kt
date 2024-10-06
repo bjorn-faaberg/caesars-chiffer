@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test
 
 class ShiftCharactersTest {
 
-    val bmpStart = 0
-    val bmpEnd = 65535
+    private val bmpStart = 0
+    private val bmpEnd = 65535
 
     @Test
     fun `shiftCharacters with BMP encodes and decodes common characters with shift 4`() {
@@ -66,9 +66,9 @@ class ShiftCharactersTest {
     @Test
     fun `shiftCharacters with reduced char-set not starting with 0 encodes and decodes normal characters shift larger than the character set size`() {
         val originalPhrase = "ABCXYZ"
-        val shift = (26 * 3) + 4
         val start = 'A'.code
         val end = 'Z'.code
+        val shift = ((end - start + 1) * 3) + 4
         val shiftCharacters = ShiftCharacters(start, end)
         val encoded = shiftCharacters.shiftCharacters(originalPhrase, shift)
         val expected = "EFGBCD"
@@ -80,10 +80,9 @@ class ShiftCharactersTest {
     @Test
     fun `shiftCharacters with reduced char-set not starting with 0 encodes and decodes normal characters shift negative beoynd the size of the character set`() {
         val originalPhrase = "ABCXYZ"
-//        val shift = ((26 * 3) + 4).unaryMinus()
-        val shift = 4.unaryMinus()
         val start = 'A'.code
         val end = 'Z'.code
+        val shift = ((end - start + 1) * 3) - 4
         val shiftCharacters = ShiftCharacters(start, end)
         val encoded = shiftCharacters.shiftCharacters(originalPhrase, shift)
         val expected = "WXYTUV"
